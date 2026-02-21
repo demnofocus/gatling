@@ -1,19 +1,17 @@
-public class StressTest extends BaseTest{
+public class StressTest extends BaseTest {
 
-    public StressTest() {
-        super("StressTest");
-    }
+  public StressTest() {
+    super("StressTest");
+  }
 
-    {
-        setUp(
+  {
+    setUp().maxDuration(RAMP_DURATION.plus(TEST_DURATION)).protocols(httpProtocolBuilder);
+  }
 
-        ).maxDuration(RAMP_DURATION.plus(TEST_DURATION)).protocols(httpProtocolBuilder);
-    }
-
-    @Override
-    public void before(){
-        System.out.println("Running " + getTestName() + "...");
-        System.out.println("Ramp Duration " + RAMP_DURATION );
-        System.out.println("Test Duration " + TEST_DURATION );
-    }
+  @Override
+  public void before() {
+    System.out.println("Running " + getTestName() + "...");
+    System.out.println("Ramp Duration " + RAMP_DURATION);
+    System.out.println("Test Duration " + TEST_DURATION);
+  }
 }

@@ -62,9 +62,7 @@ public class ScenarioGroups {
                     try {
                       // Deserialize product list from session
                       List<Product> products =
-                          mapper.readValue(
-                              session.getString(PRODUCTS), new TypeReference<>() {
-                                  });
+                          mapper.readValue(session.getString(PRODUCTS), new TypeReference<>() {});
 
                       // Select the first product and add it to cart
                       Product myFirstProduct = products.get(0);

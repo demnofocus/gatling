@@ -12,8 +12,7 @@ public class APIendpoints {
   // Add authentication header if an access token exists in the session
   // Reference:
   // https://docs.gatling.io/reference/script/protocols/http/protocol/#header
-  public static HttpProtocolBuilder withAuthenticationHeader(
-          HttpProtocolBuilder protocolBuilder) {
+  public static HttpProtocolBuilder withAuthenticationHeader(HttpProtocolBuilder protocolBuilder) {
     return protocolBuilder.header(
         "Authorization",
         session -> Optional.ofNullable(session.getString(ACCESS_TOKEN)).orElse(""));
