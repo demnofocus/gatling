@@ -1,0 +1,39 @@
+name: Gatling Performance Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'Enter name of test project to run'
+        required: true
+        default: 'java-maven'
+      simulation:
+        description: 'Enter name of the simulation'
+        required: true
+        default: 'LoadTest'
+      ramp_up_duration:
+        description: 'Load ramp up duration'
+        default: '2'
+      test_duration:
+        description: 'Load duration (steady load)'
+        required: true
+        default: '2'
+
+
+jobs:
+  gatling-tests:
+    name: ${{github.event.inputs.project}}_PerfTest
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run test
+        run: ./mvnw.cmd clean gatling:test -D gatling.simulationClass=${{github.event.inputs.simulation}}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifacts@v4
+        with:
+          name: gatling-reports
+          path: ${{github.workspace}}/target
