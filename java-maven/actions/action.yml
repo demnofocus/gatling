@@ -15,8 +15,7 @@ runs:
     - name: Run Gatling Tests
       shell: bash
       run: |
-        chmod +x "${{ github.action_path }}/run-gatling.sh"
-        "${{ github.action_path }}/run-gatling.sh" \
+        "./actions/run-gatling.sh" \
           "${{ inputs.simulation }}" \
           "${{ inputs.test_duration }}" \
           "${{ inputs.ramp_up_duration }}" \
