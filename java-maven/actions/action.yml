@@ -23,7 +23,6 @@ runs:
           "${{ github.workspace }}"
 
     - name: Upload Artifacts
-      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: gatling-reports-java-maven-${{ github.run_number }}
