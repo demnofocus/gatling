@@ -29,6 +29,7 @@ To set permissions follow the below steps:
   * `$ git ls-tree HEAD run-gatling.sh`
     * if it shows as `100644` the file does not have executable permissions
 * Set executable permissions
-  * `chmod +x ./mvnw`
-  * `git update-index --chmod=+x mvnw`
-  * `git commit -m "Set execute permissions for mvnw`
+  * `chmod +x run-gatling.sh`
+  * `git update-index --chmod=+x run-gatling.sh`
+  * `git commit -m "Set execute permissions for run-gatling.sh`
+* Check the file mode in the Git index, if it shows as `100755` the file now has executable permissions
