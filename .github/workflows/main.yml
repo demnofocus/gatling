@@ -22,18 +22,23 @@ on:
 
 jobs:
   gatling-tests:
-    name: ${{github.event.inputs.project}}_PerfTest
-    runs-on: ubuntu-slim
+    name: ${{github.event.inputs.project}}_perf_test
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run test
-        run: ./mvnw.cmd clean gatling:test -D gatling.simulationClass=${{github.event.inputs.simulation}}
-
-      - name: Upload artifacts
-        uses: actions/upload-artifacts@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          name: gatling-reports
-          path: ${{github.workspace}}/target
+          distribution: temurin
+          java-version: "17"
+
+      # This is the key: call the composite action in the chosen project folder
+      - name: Run project action
+        uses: ./${{github.event.inputs.project}}/actions
+        with:
+          simulation: ${{github.event.inputs.simulation}}
+          test_duration: ${{github.event.inputs.test_duration}}
+          ramp_up_duration: ${{github.event.inputs.ramp_up_duration}}

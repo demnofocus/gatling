@@ -1,0 +1,32 @@
+name: "Run Gatling (Java-Maven)"
+description: "Runs Gatling tests for the Maven project"
+
+inputs:
+  simulation:
+    required: true
+  test_duration:
+    required: true
+  ramp_up_duration:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Gatling Tests
+      shell: bash
+      run: |
+        chmod +x "${{ github.action_path }}/run-gatling.sh"
+        "${{ github.action_path }}/run-gatling.sh" \
+          "${{ inputs.simulation }}" \
+          "${{ inputs.test_duration }}" \
+          "${{ inputs.ramp_up_duration }}" \
+          "${{ github.workspace }}"
+
+    - name: Upload Artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: gatling-reports-java-maven-${{ github.run_number }}
+        path: |
+          ${{ github.workspace }}/java-maven/target/gatling/**
+        if-no-files-found: warn
