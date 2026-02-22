@@ -22,7 +22,7 @@ on:
 
 jobs:
   gatling-tests:
-    name: ${{github.event.inputs.project}}_perf_test
+    name: ${{ github.event.inputs.project }}_perf_test
     runs-on: ubuntu-latest
 
     steps:
@@ -37,8 +37,8 @@ jobs:
 
       # This is the key: call the composite action in the chosen project folder
       - name: Run project action
-        uses: ./${{github.event.inputs.project}}/actions
+        uses: ./${{ github.event.inputs.project }}/actions
         with:
-          simulation: ${{github.event.inputs.simulation}}
-          test_duration: ${{github.event.inputs.test_duration}}
-          ramp_up_duration: ${{github.event.inputs.ramp_up_duration}}
+          simulation: ${{ github.event.inputs.simulation }}
+          test_duration: ${{ github.event.inputs.test_duration }}
+          ramp_up_duration: ${{ github.event.inputs.ramp_up_duration }}
