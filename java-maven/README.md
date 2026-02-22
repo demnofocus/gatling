@@ -16,3 +16,19 @@ It includes:
 * sample [Simulation](https://gatling.io/docs/gatling/reference/current/general/concepts/#simulation) class,
   demonstrating sufficient Gatling functionality
 * proper source file layout
+
+# GitHub Actions:
+
+## Important
+
+Set executable permissions to run-gatling.sh in test project directory under project/actions/
+
+To set permissions follow the below steps:
+* Open GitBash in actions directory
+* Check the file mode in the Git index
+  * `$ git ls-tree HEAD run-gatling.sh`
+    * if it shows as `100644` the file does not have executable permissions
+* Set executable permissions
+  * `chmod +x ./mvnw`
+  * `git update-index --chmod=+x mvnw`
+  * `git commit -m "Set execute permissions for mvnw`
