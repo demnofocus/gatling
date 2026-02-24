@@ -15,7 +15,7 @@ runs:
     - name: Run Gatling Tests
       shell: bash
       run: |
-        "./actions/run-gatling.sh" \
+        "./java-maven/actions/run-gatling.sh" \
           "${{ inputs.simulation }}" \
           "${{ inputs.test_duration }}" \
           "${{ inputs.ramp_up_duration }}" \
