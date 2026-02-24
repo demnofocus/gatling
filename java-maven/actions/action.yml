@@ -12,6 +12,17 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Debug current directory
+      shell: bash
+      run: |
+        echo "Current directory:"
+        pwd
+        echo ""
+        echo "Workspace variable:"
+        echo "$GITHUB_WORKSPACE"
+        echo ""
+        echo "List files here:"
+        ls -la
     - name: Run Gatling Tests
       shell: bash
       run: |
