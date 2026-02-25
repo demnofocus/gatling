@@ -12,18 +12,35 @@ inputs:
 runs:
   using: "composite"
   steps:
+#    - name: Debug current directory
+#      shell: bash
+#      run: |
+#        echo "Current directory:"
+#        pwd
+#        echo ""
+#        echo "Workspace variable:"
+#        echo "$GITHUB_WORKSPACE"
+#        echo ""
+#        echo "List files here:"
+#        ls -la
+#
+#    - name: Debug script header
+#      shell: bash
+#      run: |
+#        ls -la ./java-maven/actions
+#        file ./java-maven/actions/run-gatling.sh
+#        head -n 1 ./java-maven/actions/run-gatling.sh | cat -A
+
     - name: Run Gatling Tests
       shell: bash
       run: |
-        chmod +x "${{ github.action_path }}/run-gatling.sh"
-        "${{ github.action_path }}/run-gatling.sh" \
-          "${{ inputs.simulation }}" \
-          "${{ inputs.test_duration }}" \
-          "${{ inputs.ramp_up_duration }}" \
-          "${{ github.workspace }}"
+        ./java-maven/actions/run-gatling.sh \
+        ${{ inputs.simulation }} \
+        ${{ inputs.test_duration }} \
+        ${{ inputs.ramp_up_duration }} \
+        ${{ github.workspace }}
 
     - name: Upload Artifacts
-      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: gatling-reports-java-maven-${{ github.run_number }}

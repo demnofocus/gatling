@@ -1,28 +1,26 @@
-name: Gatling Performance Test
-
 on:
   workflow_dispatch:
     inputs:
       project:
-        description: 'Enter name of test project to run'
+        description: "Enter name of test project to run"
         required: true
-        default: 'java-maven'
+        default: "java-maven"
       simulation:
-        description: 'Enter name of the simulation'
+        description: "Enter name of the simulation"
         required: true
-        default: 'LoadTest'
+        default: "LoadTest"
       ramp_up_duration:
-        description: 'Load ramp up duration'
-        default: '2'
-      test_duration:
-        description: 'Load duration (steady load)'
+        description: "Load ramp up duration"
         required: true
-        default: '2'
-
+        default: "2"
+      test_duration:
+        description: "Load duration (steady load)"
+        required: true
+        default: "2"
 
 jobs:
   gatling-tests:
-    name: ${{github.event.inputs.project}}_perf_test
+    name: PerfTest
     runs-on: ubuntu-latest
 
     steps:
@@ -35,10 +33,24 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      # This is the key: call the composite action in the chosen project folder
-      - name: Run project action
-        uses: ./${{github.event.inputs.project}}/actions
+      - name: Run java-maven action
+        if: ${{ github.event.inputs.project == 'java-maven' }}
+        uses: ./java-maven/actions
         with:
-          simulation: ${{github.event.inputs.simulation}}
-          test_duration: ${{github.event.inputs.test_duration}}
-          ramp_up_duration: ${{github.event.inputs.ramp_up_duration}}
+          simulation: ${{ github.event.inputs.simulation }}
+          test_duration: ${{ github.event.inputs.test_duration }}
+          ramp_up_duration: ${{ github.event.inputs.ramp_up_duration }}
+
+      - name: Run java-gradle action
+        if: ${{ github.event.inputs.project == 'java-gradle' }}
+        uses: ./java-gradle/actions
+        with:
+          simulation: ${{ github.event.inputs.simulation }}
+          test_duration: ${{ github.event.inputs.test_duration }}
+          ramp_up_duration: ${{ github.event.inputs.ramp_up_duration }}
+
+      - name: Fail if project input is unsupported
+        if: ${{ github.event.inputs.project != 'java-maven' && github.event.inputs.project != 'java-gradle' }}
+        run: |
+          echo "Unsupported project: ${{ github.event.inputs.project }}"
+          exit 1
