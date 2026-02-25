@@ -20,17 +20,17 @@ echo "Info: Simulation: ${SIMULATION}"
 echo "Info: Test duration: ${TEST_DURATION}"
 echo "Info: Ramp duration: ${RAMP_DURATION}"
 
-PROJECT_DIR="${WORKSPACE}/java-maven"
+PROJECT_DIR="${WORKSPACE}/java-gradle"
 
 # Navigate to the project where mvnw is located
 echo "Info: Navigating to ${PROJECT_DIR} ..."
 cd "${PROJECT_DIR}"
 
-chmod +x mvnw
+chmod +x gradelw
 
-# Run Gatling test using Maven Wrapper
-echo "Info: Running Maven Gatling..."
-./mvnw -B clean gatling:test \
-  -Dgatling.simulationClass="${SIMULATION}" \
+# Run Gatling test using Gradle Wrapper
+echo "Info: Running Gradle Gatling..."
+./gradelw gatlingRun \
+  --simulation="${SIMULATION}" \
   -Dtest_duration="${TEST_DURATION}" \
   -Dramp_up_duration="${RAMP_DURATION}"
