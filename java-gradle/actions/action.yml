@@ -1,0 +1,49 @@
+name: "Run Gatling (Java-Maven)"
+description: "Runs Gatling tests for the Maven project"
+
+inputs:
+  simulation:
+    required: true
+  test_duration:
+    required: true
+  ramp_up_duration:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+#    - name: Debug current directory
+#      shell: bash
+#      run: |
+#        echo "Current directory:"
+#        pwd
+#        echo ""
+#        echo "Workspace variable:"
+#        echo "$GITHUB_WORKSPACE"
+#        echo ""
+#        echo "List files here:"
+#        ls -la
+#
+#    - name: Debug script header
+#      shell: bash
+#      run: |
+#        ls -la ./java-maven/actions
+#        file ./java-maven/actions/run-gatling.sh
+#        head -n 1 ./java-maven/actions/run-gatling.sh | cat -A
+
+    - name: Run Gatling Tests
+      shell: bash
+      run: |
+        ./java-gradle/actions/run-gatling.sh \
+        ${{ inputs.simulation }} \
+        ${{ inputs.test_duration }} \
+        ${{ inputs.ramp_up_duration }} \
+        ${{ github.workspace }}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: gatling-reports-java-maven-${{ github.run_number }}
+        path: |
+          ${{ github.workspace }}/java-maven/target/gatling/**
+        if-no-files-found: warn
