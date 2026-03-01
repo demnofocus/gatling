@@ -30,7 +30,7 @@ chmod +x mvnw
 
 # Run Gatling test using Maven Wrapper
 echo "Info: Running Maven Gatling..."
-./mvnw -B clean gatling:test \
+./mvnw -q -B clean gatling:test \
   -Dgatling.simulationClass="${SIMULATION}" \
   -Dtest_duration="${TEST_DURATION}" \
   -Dramp_up_duration="${RAMP_DURATION}"
