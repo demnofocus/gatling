@@ -45,5 +45,5 @@ runs:
       with:
         name: gatling-reports-java-gradle-${{ github.run_number }}
         path: |
-          ${{ github.workspace }}/java-gradle/target/gatling/**
+          ${{ github.workspace }}/java-gradle/build/reports/gatling/**
         if-no-files-found: warn
