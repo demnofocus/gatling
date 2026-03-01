@@ -40,6 +40,8 @@ jobs:
           simulation: ${{ github.event.inputs.simulation }}
           test_duration: ${{ github.event.inputs.test_duration }}
           ramp_up_duration: ${{ github.event.inputs.ramp_up_duration }}
+          secret_id: ${{ secrets.SECRET_ID }}
+          secret_key: ${{ secrets.SECRET_KEY }}
 
       - name: Run java-gradle action
         if: ${{ github.event.inputs.project == 'java-gradle' }}
@@ -48,6 +50,8 @@ jobs:
           simulation: ${{ github.event.inputs.simulation }}
           test_duration: ${{ github.event.inputs.test_duration }}
           ramp_up_duration: ${{ github.event.inputs.ramp_up_duration }}
+          secret_id: ${{ secrets.SECRET_ID }}
+          secret_key: ${{ secrets.SECRET_KEY }}
 
       - name: Fail if project input is unsupported
         if: ${{ github.event.inputs.project != 'java-maven' && github.event.inputs.project != 'java-gradle' }}

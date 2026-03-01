@@ -22,3 +22,8 @@ spotless {
         googleJavaFormat()
     }
 }
+
+tasks.withType(JavaExec).configureEach {
+    systemProperty 'secret_id', System.getProperty('secret_id')
+    systemProperty 'secret_key', System.getProperty('secret_key')
+}
