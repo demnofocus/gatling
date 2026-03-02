@@ -32,7 +32,8 @@ chmod +x gradlew
 
 # Run Gatling test using Gradle Wrapper
 echo "Info: Running Gradle Gatling..."
-./gradlew -q -B gatlingRun \
+./gradlew --no-daemon --console=plain -q \
+  gatlingRun \
   --simulation="${SIMULATION}" \
   -Dtest_duration="${TEST_DURATION}" \
   -Dramp_up_duration="${RAMP_DURATION}" \
