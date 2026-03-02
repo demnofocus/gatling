@@ -14,6 +14,8 @@ SIMULATION="$1"
 TEST_DURATION="$2"
 RAMP_DURATION="$3"
 WORKSPACE="$4"
+SECRET_ID="$5"
+SECRET_KEY="$6"
 
 echo "Info: Starting Gatling Tests..."
 echo "Info: Simulation: ${SIMULATION}"
@@ -30,7 +32,9 @@ chmod +x mvnw
 
 # Run Gatling test using Maven Wrapper
 echo "Info: Running Maven Gatling..."
-./mvnw -B clean gatling:test \
+./mvnw -q -B clean gatling:test \
   -Dgatling.simulationClass="${SIMULATION}" \
   -Dtest_duration="${TEST_DURATION}" \
-  -Dramp_up_duration="${RAMP_DURATION}"
+  -Dramp_up_duration="${RAMP_DURATION}" \
+  -Dsecret_id="${SECRET_ID}" \
+  -Dsecret_key="${SECRET_KEY}"

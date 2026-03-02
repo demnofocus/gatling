@@ -8,28 +8,14 @@ inputs:
     required: true
   ramp_up_duration:
     required: true
+  secret_id:
+    required: false
+  secret_key:
+    required: false
 
 runs:
   using: "composite"
   steps:
-#    - name: Debug current directory
-#      shell: bash
-#      run: |
-#        echo "Current directory:"
-#        pwd
-#        echo ""
-#        echo "Workspace variable:"
-#        echo "$GITHUB_WORKSPACE"
-#        echo ""
-#        echo "List files here:"
-#        ls -la
-#
-#    - name: Debug script header
-#      shell: bash
-#      run: |
-#        ls -la ./java-maven/actions
-#        file ./java-maven/actions/run-gatling.sh
-#        head -n 1 ./java-maven/actions/run-gatling.sh | cat -A
 
     - name: Run Gatling Tests
       shell: bash
@@ -38,7 +24,9 @@ runs:
         ${{ inputs.simulation }} \
         ${{ inputs.test_duration }} \
         ${{ inputs.ramp_up_duration }} \
-        ${{ github.workspace }}
+        ${{ github.workspace }} \
+        ${{ inputs.secret_id }} \
+        ${{ inputs.secret_key }}
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
