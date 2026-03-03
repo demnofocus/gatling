@@ -7,7 +7,7 @@ import java.time.Duration;
 
 import static io.gatling.javaapi.http.HttpDsl.http;
 
-public class BaseTest extends Simulation {
+public abstract class BaseTest extends Simulation {
 
   public static final Duration TEST_DURATION =
       Duration.ofMinutes(Integer.parseInt(System.getProperty("duration", "2")));
