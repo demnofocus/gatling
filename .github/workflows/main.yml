@@ -27,12 +27,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "17"
-
       - name: Run java-maven action
         if: ${{ github.event.inputs.project == 'java-maven' }}
         uses: ./java-maven/actions
