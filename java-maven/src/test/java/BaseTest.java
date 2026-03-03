@@ -6,7 +6,7 @@ import io.gatling.javaapi.core.Simulation;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
 import java.time.Duration;
 
-public class BaseTest extends Simulation {
+public abstract class BaseTest extends Simulation {
 
   public static final Duration TEST_DURATION =
       Duration.ofMinutes(Integer.parseInt(System.getProperty("duration", "2")));
