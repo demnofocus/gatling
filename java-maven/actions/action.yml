@@ -10,8 +10,10 @@ inputs:
     required: true
   secret_id:
     required: false
+    secret: true
   secret_key:
     required: false
+    secret: true
 
 runs:
   using: "composite"
