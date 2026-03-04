@@ -4,11 +4,19 @@ on:
       project:
         description: "Enter name of test project to run"
         required: true
-        default: "java-maven"
+        type: choice
+        options:
+          - java-maven
+          - jave-gradle
+          - javascript
       simulation:
         description: "Enter name of the simulation"
         required: true
-        default: "LoadTest"
+        type: choice
+        options:
+          - LoadTest
+          - StressTest
+          - BreakpointTest
       ramp_up_duration:
         description: "Load ramp up duration"
         required: true
@@ -46,9 +54,3 @@ jobs:
           ramp_up_duration: ${{ github.event.inputs.ramp_up_duration }}
           secret_id: ${{ secrets.SECRET_ID }}
           secret_key: ${{ secrets.SECRET_KEY }}
-
-      - name: Fail if project input is unsupported
-        if: ${{ github.event.inputs.project != 'java-maven' && github.event.inputs.project != 'java-gradle' }}
-        run: |
-          echo "Unsupported project: ${{ github.event.inputs.project }}"
-          exit 1
